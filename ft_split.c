@@ -1,9 +1,49 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: psleziak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/19 17:55:03 by psleziak          #+#    #+#             */
+/*   Updated: 2021/05/20 18:09:48 by psleziak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-int ft_count(char const *s, char c)
+char	*ft_copy(char *a, char const *s, int i, int k)
 {
-	int i;
-	int j;    
+	int	z;
+
+	z = -1;
+	while (++z < k)
+		a[z] = s[i - k + z];
+	return (a);
+}	
+
+int	ft_word(char const *s, int *i, char c)
+{
+	int	k;
+
+	k = 0;
+	while (s[*i] == c)
+		(*i)++;
+	while (s[*i] != c && s[*i] != '\0')
+	{
+		k++;
+		(*i)++;
+	}
+	if (k == 0)
+		return (0);
+	else
+		return (k);
+}
+
+int	ft_count(char const *s, char c)
+{
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -25,43 +65,30 @@ int ft_count(char const *s, char c)
 	return (j);
 }
 
-char **ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
-	int i;
-	int k;
-	int x;
-	int y;
-	int z;
-	char *small;
-	char **big;    
+	int		i;
+	int		k;
+	int		y;
+	char	*small;
+	char	**big;
 
+	if (!s)
+		return (0);
 	i = 0;
-	y = 0;
-	x = ft_count(s, c);
-	if (!(big = ft_calloc((x + 1), sizeof(char*))))
+	y = -1;
+	big = ft_calloc((ft_count(s, c) + 1), sizeof(char *));
+	if (!big)
 		return (0);
 	while (s[i] != '\0')
 	{
-		while (s[i] == c)
-			i++;
-		k = 0;
-		while (s[i] != c && s[i] != '\0')
-		{
-			i++;
-			k++;
-		}
-		if (k == 0)
-			break;
-		if (!(small = ft_calloc((k + 1), sizeof(char))))
+		k = ft_word(s, &i, c);
+		if (!k)
+			break ;
+		small = ft_calloc((k + 1), sizeof(char));
+		if (!small)
 			return (0);
-		z = 0;
-		while (z < k)
-		{
-			small[z] = s[i - k + z];
-			z++;
-		}
-		big[y] = small;
-		y++;
+		big[++y] = ft_copy(small, s, i, k);
 	}
 	return (big);
 }

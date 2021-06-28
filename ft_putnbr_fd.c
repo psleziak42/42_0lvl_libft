@@ -1,9 +1,16 @@
-#include "libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: psleziak <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/17 21:59:18 by psleziak          #+#    #+#             */
+/*   Updated: 2021/05/17 22:06:35 by psleziak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void 	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
+#include "libft.h"
 
 void	ft_putnbr_fd(int n, int fd)
 {
@@ -17,9 +24,9 @@ void	ft_putnbr_fd(int n, int fd)
 		ft_putchar_fd('-', fd);
 		ft_putnbr_fd(n * -1, fd);
 	}
-	else if(n > 9)
+	else if (n > 9)
 	{
-		ft_putnbr_fd(n/10, fd);
+		ft_putnbr_fd(n / 10, fd);
 		ft_putchar_fd(n % 10 + '0', fd);
 	}
 	else
