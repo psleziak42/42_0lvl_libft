@@ -32,6 +32,7 @@ SRCS	= 	ft_atoi.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
 		ft_split.c \
+	
 
 OBJS	= $(SRCS:.c=.o)
 
@@ -58,6 +59,9 @@ all:	$(NAME)
 
 bonus:	$(OBJS) $(OBJSb)
 	ar rcs $(NAME) $(OBJS) $(OBJSb)
+
+run:
+	$(CC) $(CFLAGS) main.c -I. -L. -lft && ./a.out
 
 clean:
 	$(RM) $(OBJS) $(OBJSb)
